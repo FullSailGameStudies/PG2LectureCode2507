@@ -21,11 +21,19 @@ void print(const std::vector<std::string>& names)
 
 int main()
 {
+    std::string name = "Bruce W.";
+    std::string otherName = "Alfred P.";
+    //capture the returned value in a variable
+    int size = (int)name.size();//explicit cast
+    std::cout << size;//non-static methods need an object to call them
     //Input and Console examples   
     // 
     //std::string myName = Input::GetString("What is your name?");
     //int minAge = 0, maxAge = 120;
     //int age = Input::GetInteger("What is your age?", minAge, maxAge);
+
+    //static methods only need "ClassName::" to call them
+    Console::Write("Batman is clearly superior.");
     Console::Write("Hello Gotham.\t");
     Console::Write("Hello PG2!", ConsoleColor::Red, ConsoleColor::Yellow);
     Console::SetCursorPosition(5, 10);
