@@ -40,6 +40,14 @@ int main()
     Console::WriteLine("Hello Gotham.");
     Console::SetCursorLeft(15);
     Console::WriteLine("Hello PG2!", ConsoleColor::Yellow, ConsoleColor::Red);
+
+
+    std::string bestName;
+    bestName = Input::GetString("Name of the best superhero (ex: Batman)");
+    Console::WriteLine("You entered " + bestName + " as the best superhero. weird.");
+
+    int age = Input::GetInteger("What is your age? ", 0, 150);
+    Console::WriteLine("You entered " + std::to_string(age));
     Input::PressEnter("Press enter to continue...", true);
 
     /*
