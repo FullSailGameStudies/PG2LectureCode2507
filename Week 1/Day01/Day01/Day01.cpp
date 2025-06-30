@@ -4,6 +4,7 @@
 #include "Calculator.h"
 #include "Console.h"
 #include "Input.h"
+#include <Menu.h>
 
 int AddOne(int localNumber)
 {
@@ -57,6 +58,33 @@ int main()
         2) if the method returns data, it is usually best to store that data in a variable on the line where you call the method.
 
     */
+    //ONLY #include header files
+    Menu cafe;
+    cafe.AddMenuItem("coffee");
+    cafe.AddMenuItem("pizza");
+    cafe.AddMenuItem("croissant");
+
+
+    Calculator t800;
+    int result = t800.Add(5, 2);
+    Console::WriteLine("5 + 2 = " + std::to_string(result));
+    result = t800.Subtract(5, 2);
+    Console::WriteLine("5 - 2 = " + std::to_string(result));
+    result = t800.Multiply(5, 2);
+    Console::WriteLine("5 * 2 = " + std::to_string(result));
+    result = t800.Divide(5, 2);
+    Console::WriteLine("5 / 2 = " + std::to_string(result));
+
+    std::cout << "\nUsing vectors\n";
+    std::vector<int> numbers{ 5,2 };
+    result = t800.Add(numbers);
+    Console::WriteLine("5 + 2 = " + std::to_string(result));
+    result = t800.Subtract(numbers);
+    Console::WriteLine("5 - 2 = " + std::to_string(result));
+    result = t800.Multiply(numbers);
+    Console::WriteLine("5 * 2 = " + std::to_string(result));
+    result = t800.Divide(numbers);
+    Console::WriteLine("5 / 2 = " + std::to_string(result));
 
     /*
         ╔══════════════════════════╗
