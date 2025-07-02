@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include <Input.h>
+#include "FullSailCourse.h"
 
 bool postFix(std::string& hero)
 {
@@ -32,9 +34,34 @@ void printInfo(const std::vector<int>& scores)
 {
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
-
+//myName is going to be a reference to the variable 
+// used then calling the method
+//does NOT make a copy
+// Copies are "EXPENSIVE" for the runtime
+// In general, ALWAYS pass classes by reference
+// for types like vector
+void GetWhoIAm(std::string& myName)
+{
+    myName = Input::GetString("Who are you? ");
+    //this changes the variable in main
+}
+void WhoAmI(std::string name)//name = Alfred
+{
+    name = "The Joker";
+    std::cout << name << "\n";
+}//name is removed from memory
 int main()
 {
+    std::string alfred = "Alfred P.";
+    std::string bruce;
+    GetWhoIAm(bruce);
+    std::string& batman = bruce;
+    batman = "";//erased the characters from bruce
+    batman = alfred;//copying the charactes from alfred to bruce
+
+    std::string myName = "Bruce W.";
+    WhoAmI(myName);//pass the variable BY value (COPY)
+    WhoAmI("Alfred");
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -59,6 +86,14 @@ int main()
 
     */
     std::vector<float> grades;
+    FullSailCourse pg2;
+    pg2.GetGrades(grades);
+    std::cout << "\n\nPG2 2507\n";
+    for (auto& grade : grades)
+    {
+        std::cout << grade << "\n";
+    }
+    std::cout << "\n";
 
 
 
