@@ -32,6 +32,9 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    //capacity() - length of the internal array
+    //size() - # of items in the array
+    //size() <= capacity()
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 //myName is going to be a reference to the variable 
@@ -45,23 +48,23 @@ void GetWhoIAm(std::string& myName)
     myName = Input::GetString("Who are you? ");
     //this changes the variable in main
 }
-void WhoAmI(std::string name)//name = Alfred
+void WhoAmI(const std::string& name = "Bats")//name = Alfred
 {
-    name = "The Joker";
     std::cout << name << "\n";
 }//name is removed from memory
 int main()
 {
+    int day = 2;
     std::string alfred = "Alfred P.";
     std::string bruce;
     GetWhoIAm(bruce);
     std::string& batman = bruce;
     batman = "";//erased the characters from bruce
-    batman = alfred;//copying the charactes from alfred to bruce
+    batman = alfred;//copying the characters from alfred to bruce
 
     std::string myName = "Bruce W.";
     WhoAmI(myName);//pass the variable BY value (COPY)
-    WhoAmI("Alfred");
+    WhoAmI();
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -95,6 +98,10 @@ int main()
     }
     std::cout << "\n";
 
+    pg2.SetName("PG2 2507 (July)");
+    pg2.PrintGrades(grades);
+    pg2.EraseGrades(grades);
+    pg2.PrintGrades(grades);
 
 
     /*
@@ -106,6 +113,8 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
+    highScores.reserve(10);//presizes the internal array
+    printInfo(highScores);//size: 0  capacity: 0
     for (int i = 0; i < 10; ++i)
     {
         highScores.push_back(rand() % 5000);
