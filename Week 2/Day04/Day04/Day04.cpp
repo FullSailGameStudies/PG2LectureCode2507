@@ -46,7 +46,7 @@ unsigned long factorial(unsigned int N)
               for i := 1 to n - 1 inclusive do
                   if A[i - 1] > A[i] then
                       swap(A, i - 1, i)
-                      swapped = true
+                      swapped := true
                   end if
               end for
               n := n - 1
@@ -55,8 +55,81 @@ unsigned long factorial(unsigned int N)
 
 */
 
+//procedure bubbleSort(A : list of sortable items)
+void bubbleSort(std::vector<std::string>& A)
+{
+    // := means assignment
+    //n := length(A)
+    int n = A.size();
+    bool swapped;
+    do
+    {
+        //swapped := false
+        swapped = false;
+        //for i := 1 to n - 1 inclusive do
+        for (int i = 1; i <= n-1; i++)
+        {
+            //if A[i - 1] > A[i] then
+            //_stricmp(s1,s2) _strcmp  stricmp (not-safe!)
+            // <0  s1 < s2
+            //  0  s1 = s2
+            //  >0  s1 > s2
+            if (_stricmp(A[i - 1].c_str(), A[i].c_str()) > 0)
+            {
+                //swap(A, i - 1, i) //TODO: figure out swap!!!
+                //OG swap
+                //std::string temp = A[i - 1];
+                //A[i - 1] = A[i];
+                //A[i] = temp;
+                //NG? swap
+                std::swap(A[i - 1], A[i]);
+
+                //swapped : = true
+                swapped = true;
+            }//end if
+        }//end for
+        //n := n - 1
+        n = n - 1;//--n; n--; n-=1;
+    } while (swapped);
+}//end procedure
+void Method(int someNumber)
+{
+    //how long do we loop?
+    //we need an EXIT condition (or base case)
+    if (someNumber > 5000) return;
+
+    int otherNumber = 5;
+    std::cout << someNumber << ", " << otherNumber << "\n";
+    Method(someNumber + otherNumber);
+    std::cout << someNumber << "\n";
+}
+
+void Bats(int i=0)
+{
+    //exit condition
+    if(i < 100)
+    {
+        std::cout << (char)78 << (char)65 << ' ';
+        //i++ post-increment
+        //++i pre-increment (slightly better performance)
+        Bats(i+1);//recursive call
+    }
+}
+void ReverseWord(const std::string& word, int index=0)
+{
+    if (index >= word.size()) return;
+    ReverseWord(word, index + 1);
+    std::cout << word[index];
+}
 int main()
 {
+    //Method(10);
+
+    for (int i = 0; i < 10; ++i)
+    {
+        //Method(i);
+    }
+
     std::vector<std::string> names = { "Wonder Woman", "Superman", "Batman", "Flash", "Aquaman" };
     //call your BubbleSort on the names vector.
 
@@ -66,6 +139,7 @@ int main()
         std::cout << name << "\n";
 
     //call BubbleSort
+    bubbleSort(names);
 
     Console::WriteLine("--SORTED--", ConsoleColor::Yellow);
     //print the sorted vector.
@@ -84,7 +158,7 @@ int main()
 
     */
     int N = 0;
-    recursiveLoop(N);
+    //recursiveLoop(N);
 
 
     /*
@@ -99,11 +173,15 @@ int main()
             }
     */
     //call Bats here.
+    Bats();
 
     char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
     for (auto ch : c) std::cout << ch;
 
-
+    std::string wordToReverse = "Batman";
+    std::cout << "\n\n" << wordToReverse << "\n";
+    ReverseWord("Batman");
+    std::cout << "\n";
 
     /*
         ╔═════════════════╗
