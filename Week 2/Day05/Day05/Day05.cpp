@@ -7,13 +7,46 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include <iomanip>
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
 
+const int NOT_FOUND = -1;
 
+int LinearSearch(const std::vector<int>& numbers, int numberToFind)
+{
+    for (int i = 0; i < numbers.size(); i++)
+    {
+        if (numberToFind == numbers[i])
+        {
+            return i;
+        }
+    }
+    return NOT_FOUND;
+}
+
+void PrintGrades(const std::map<std::string,double>& grades)
+{
+    std::cout << "\nPG2 2507\n";
+    for (auto& [student, grade] : grades)
+    {
+        std::cout << std::setw(10) << std::left << student;
+        Console::SetForegroundColor(
+            //ternary operator
+            (grade < 59.5) ? ConsoleColor::Red : 
+            (grade < 69.5) ? ConsoleColor::Yellow : 
+            (grade < 79.5) ? ConsoleColor::Cyan : 
+            (grade < 89.5) ? ConsoleColor::Magenta : 
+            ConsoleColor::Green
+        );
+        std::cout << std::right << std::setw(7) << grade << "\n";
+        Console::Reset();
+    }
+    std::cout << "\n\n";
+}
 int main()
 {
     /*
@@ -37,10 +70,77 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
+    int searchNumber = 6;
+    int foundIndex = LinearSearch(numbers, searchNumber);
+    if (foundIndex == NOT_FOUND)
+    {
+        std::cout << searchNumber << " was not found.\n";
+    }
+    else
+    {
+        std::cout << searchNumber << " was found at index " << foundIndex << "\n";
+    }
 
 
 
+    //menu map. stores the name + price
+    //name is the key (std::string)
+    //price is the value (float)
+    std::map<std::string, float> menu;
+
+    //2 ways to add items to a map
+    // adds a key-value pair to the map
+    //  1) (easy way) map[key] = value;
+
+    menu["bagel"] = 5.99f;
+    menu["eggs"] = 3.99f;
+    menu["belgian waffles"] = 11.99f;
+    menu["belgian waffles"] = 12.99f;//overwrites the value
+
+    //  2) (the hard way) map.insert(pair object);
+    std::pair<std::string, float> menuPair =
+        std::make_pair("pancakes", 9.99f);
+    auto result =  menu.insert(menuPair);
+    //pair objects have 2 parts: first and second
+    if (result.second)
+        std::cout << "Item was inserted.\n";
+    else
+        std::cout << "Item was NOT inserted.\n";
+    menuPair.second = 10.99f;
+    result = menu.insert(menuPair);//does NOT overwrite the value
+    if (result.second)
+        std::cout << "Item was inserted.\n";
+    else
+        std::cout << "Item was NOT inserted.\n";
+
+
+    //range-based for
+    for (auto& [itemName,itemPrice] : menu)
+    {
+        std::cout << itemName << "  " << itemPrice << "\n";
+    }
+
+    //iterator loop
+    for (auto i = menu.begin(); i != menu.end(); i++)
+    {
+        std::cout << (*i).first << " " << i->second << "\n";
+    }
+
+    std::cout << menu["belgian waffles"] << "\n";
+    //use the find(key)
+    std::string itemToFind = "belgian waffles";
+    auto foundIterator = menu.find(itemToFind);//uses binary search internally
+    if (foundIterator == menu.end())
+    {
+        std::cout << itemToFind << " is not on the menu. Try McDonald's.\n";
+    }
+    else
+    {
+        float original = foundIterator->second;
+        foundIterator->second *= 1.05;
+        std::cout << itemToFind << " used to costs " << original << ".";
+        std::cout << " Now it costs " << foundIterator->second << "!! Thanks Putin.\n";
+    }
     /*
         ╔═══════════════════╗
         ║ map<TKey, TValue> ║
@@ -85,9 +185,33 @@ int main()
 
     */
 
+    std::vector<std::string> students = {
+        "Garrett", "Benjamin", "Eric", "Tammi", "Zachary", "Dante", "Alan", "Richard", "Thomas"
+    };
+    srand(time(NULL));
+    std::map<std::string, double> grades;
+    for (auto& name : students)
+    {
+        grades[name] = rand() % 10001 / 100.0;
+    }
 
+    do
+    {
+        PrintGrades(grades);
+        std::string student = Input::GetString("Student to curve: ");
+        if (student.empty()) break;
 
-
+        auto foundStudent = grades.find(student);
+        if (foundStudent == grades.end())
+        {
+            std::cout << student << " is not in PG2.\n";
+        }
+        else
+        {
+            foundStudent->second = std::min(100.0, foundStudent->second + 5);
+            std::cout << student << " now has a grade of " << foundStudent->second << "\n";
+        }
+    } while (true);
 
 
     /*
@@ -176,7 +300,7 @@ int main()
 
         [  Updating a value for a key in a map  ]
 
-        To update an exisiting value in the map, use the [ ]
+        To update an existing value in the map, use the [ ]
 
 
     */
