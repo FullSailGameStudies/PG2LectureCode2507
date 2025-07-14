@@ -2,6 +2,9 @@
 //
 
 #include <iostream>
+#include "Ghost.h"
+#include "Card.h"
+#include "color.h"
 
 
 /*              CLASSESS
@@ -56,6 +59,30 @@ int main()
             Right-Click the project and select "Add > Class..."
 
     */
+    //instance (object) of the Ghost class
+    Ghost pinky("pinky", ConsoleColor::Magenta);//calling the compiler's default ctor
+    //pinky.SetName("pinky");
+    //pinky.Color(ConsoleColor::Magenta);
+
+    Card aces("K",Spades);
+    aces.Print();
+
+    CardSuit huh = (CardSuit)5;
+    switch (huh)
+    {
+    case Hearts:
+        break;
+    case Diamonds:
+        break;
+    case Clubs:
+        break;
+    case Spades:
+        break;
+    default:
+        break;
+    }
+
+    Color clr(255, 0, 0, 255);
 
 
 
