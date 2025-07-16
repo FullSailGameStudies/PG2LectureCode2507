@@ -9,7 +9,10 @@ public:
 	Weapon(int range, int damage);
 
 	void showMe();
-	int calcDamage();
+	//a pure virtual method
+	// this makes Weapon abstract
+	// cannot create an instance of Weapon
+	virtual int calcDamage() = 0;
 
 	int range() const
 	{
@@ -19,5 +22,11 @@ public:
 	{
 		return mDamage;
 	}
+
+	//Weapon operator+(const Weapon& wpn)
+	//{
+	//	Weapon newWpn(mRange + wpn.mRange, mDamage + wpn.mDamage);
+	//	return newWpn;
+	//}
 };
 

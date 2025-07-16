@@ -6,10 +6,24 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "FlyingCar.h"
+#include <vector>
+#include "BlackjackCard.h"
 
+void Counter()
+{
+	//static variables stay in memory for the lifetime of the app
+	static int i = 0;
+	std::cout << i << " ";
+	i++;
+}
 
 int main()
 {
+	for (int i = 0; i < 10; i++)
+	{
+		Counter();
+	}
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
@@ -39,8 +53,30 @@ int main()
 			Lecture Code: add a FlyingCar class that derives from Car
 
 	*/
+	Car myRide(2009, "Ford", "Expedition");
+	FlyingCar jetsons(2025,"Tesla","CyberPlane", 1000, 0);
+	std::cout << jetsons.vehicleInformation() << "\n";
+	std::cout << myRide.vehicleInformation() << "\n";
+	Car todaysRide = jetsons;//what does this do??? copy ONLY the car parts to todaysRide
+	std::cout << todaysRide.vehicleInformation() << "\n";
 
 
+	int n1 = 5, n2 = 2;
+	int sum = n1 + n2;
+
+	//Weapon wpn1(10, 50);
+	//Weapon wpn2(20, 75);
+	//Weapon wpn3 = wpn1 + wpn2;
+
+	std::cout << "\n\nBlackjack Card\n";
+	std::vector<std::string> faces{ "A","2","3","4",
+	"5","6","7","8","9","10","J","Q","K" };
+	srand(time(NULL));
+	BlackjackCard card(
+		"Q",//faces[rand() % faces.size()],
+		(CardSuit)(rand() % 4));
+	card.Print();
+	std::cout << "\n\n";
 
 	/*
 		╔*************╗

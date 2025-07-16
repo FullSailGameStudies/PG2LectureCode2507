@@ -39,6 +39,15 @@
     <ClCompile Include="..\..\..\Shared\Input\Input.cpp">
       <Filter>Misc\Input</Filter>
     </ClCompile>
+    <ClCompile Include="FlyingCar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Day07\Day07\Card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackjackCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inheritance.h">
@@ -70,6 +79,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Shared\Input\Input.h">
       <Filter>Misc\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingCar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Day07\Day07\Card.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackjackCard.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

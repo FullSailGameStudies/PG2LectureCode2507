@@ -130,15 +130,21 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Shared\Console\Console.cpp" />
     <ClCompile Include="..\..\..\Shared\Input\Input.cpp" />
+    <ClCompile Include="..\..\Day07\Day07\Card.cpp" />
+    <ClCompile Include="BlackjackCard.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="Day08.cpp" />
+    <ClCompile Include="FlyingCar.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Shared\Console\Console.h" />
     <ClInclude Include="..\..\..\Shared\Input\Input.h" />
+    <ClInclude Include="..\..\Day07\Day07\Card.h" />
+    <ClInclude Include="BlackjackCard.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="final.h" />
+    <ClInclude Include="FlyingCar.h" />
     <ClInclude Include="friends.h" />
     <ClInclude Include="Inheritance.h" />
     <ClInclude Include="nested.h" />

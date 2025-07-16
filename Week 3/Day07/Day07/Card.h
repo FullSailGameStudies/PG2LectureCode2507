@@ -12,7 +12,7 @@ public:
 	{
 	}
 
-	int Value() const;
+	virtual int Value() const;
 	void Print() const;
 
 
@@ -36,7 +36,7 @@ public:
 	}
 
 
-private:
+protected:
 	std::string face_;
 	CardSuit suit_;
 
