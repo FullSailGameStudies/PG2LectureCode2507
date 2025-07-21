@@ -33,6 +33,11 @@ public:
 		}
 	}
 
+	//static think 'shared'
+
+	//static methods
+	// there is NO 'this' pointer
+	// CANNOT access non-static members (fields or methods)
 	static void reporting()
 	{
 		//std::cout << "Model year: " << mModelYear << "\n"; //ERROR! cannot access non-static members
@@ -47,6 +52,13 @@ protected:
 	int mFuelLevel;
 	int mMaxFuelLevel;
 
+	//static data is tied to the class level, not the object level
+	//there is only ONE mNumberOfCarsMade
+	//example: if we create 100000 car objects, there are
+	//   100000 year, make, and model variables
+	//   but ONLY 1 mNumberOfCarsMade
+	//static data 'lives' in the memory for the whole time
+	// the app is running
 	static int mNumberOfCarsMade; //shared by ALL cars
 private:
 };

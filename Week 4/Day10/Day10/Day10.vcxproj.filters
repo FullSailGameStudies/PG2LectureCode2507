@@ -41,5 +41,8 @@
     <ClInclude Include="..\..\..\Shared\Input\Input.h">
       <Filter>Misc\Input</Filter>
     </ClInclude>
+    <ClInclude Include="SubTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

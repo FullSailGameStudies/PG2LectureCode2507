@@ -8,8 +8,100 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include "SubTexture.h"
+#include <algorithm> 
+#include <locale>
 
+bool LoadSubtextures(std::vector<SubTexture>& textures)
+{
+    bool wasLoaded = false;
+    std::string file = "character_robot_sheetHD.csv";
+    std::ifstream inFile(file);
+    if (inFile.is_open())
+    {
+        wasLoaded = true;
+        std::string textureFile;
+        std::getline(inFile, textureFile);
 
+        std::string line;
+        char delimiter = '?';
+        while (not inFile.eof())
+        {
+            std::getline(inFile, line);
+            std::stringstream lineStream(line);
+
+            SubTexture subTex;
+            std::getline(lineStream, subTex.name, delimiter);
+
+            std::string data;
+            try
+            {
+                std::getline(lineStream, data, delimiter);
+                subTex.x = std::stoi(data);
+
+                std::getline(lineStream, data, delimiter);
+                subTex.y = std::stoi(data);
+
+                std::getline(lineStream, data, delimiter);
+                subTex.width = std::stoi(data);
+
+                std::getline(lineStream, data, delimiter);
+                subTex.height = std::stoi(data);
+
+                textures.push_back(subTex);
+            }
+            catch (const std::exception&)
+            {
+                std::cout << "error parsing file. Data: " << data << "\n";
+                wasLoaded = false;
+                break;
+            }
+        }
+    }
+    else std::cout << file << " could not be opened.\n";
+
+    inFile.close();
+
+    return wasLoaded;
+}
+bool charComparer(char c1, char c2)
+{
+    return std::tolower(c1, std::locale()) == std::tolower(c2, std::locale());
+}
+bool isPrefix(const std::string& prefix, const std::string& word)
+{
+    return  (std::mismatch(prefix.begin(), prefix.end(),
+        word.begin(), word.end(),
+        charComparer)).first == prefix.end();
+}
+
+void SaveWalkingSubTextures(const std::vector<SubTexture>& subTextures)
+{
+    std::string file = "walking_sheetHD.csv";
+    std::ofstream outFile(file);
+    char delimiter = '^';
+    if (outFile.is_open())
+    {
+        bool isFirst = true;
+        for (auto& subTexture : subTextures)
+        {
+            if (not isFirst) outFile << "\n";
+            if (isPrefix("walk", subTexture.name))
+            {
+                outFile << subTexture.name << delimiter;
+                outFile << subTexture.x << delimiter;
+                outFile << subTexture.y << delimiter;
+                outFile << subTexture.width << delimiter;
+                outFile << subTexture.height;
+                isFirst = false;
+            }
+        }
+    }
+    else std::cout << file << " could not be opened.\n";
+
+    outFile.close();
+
+}
 
 /*
     ╔══════════╗
@@ -27,6 +119,20 @@
 int main()
 {
     std::cout << "Hello PG2!\n";
+
+    std::vector<SubTexture> subTextures;
+    if (LoadSubtextures(subTextures))
+    {
+        for (auto& subTex : subTextures)
+        {
+            std::cout << "Name: " << subTex.name << "\n\tx: " << subTex.x;
+            std::cout << "\n\ty: " << subTex.y << "\n\twidth: " << subTex.width;
+            std::cout << "\n\theight: " << subTex.height << "\n";
+        }
+    }
+    else std::cout << "Error reading file.\n";
+
+    SaveWalkingSubTextures(subTextures);
 
     /*
 
@@ -50,6 +156,25 @@ int main()
 
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
+    std::string fileName = "2507.csv";
+    std::string path = "C:/temp/2507/";
+    std::string fullPath = fileName;
+    //will create the file IF the path exists
+    //it will NOT create the path
+    //1) open the file
+    std::ofstream outFile(fullPath);
+    char delimiter = '%';
+    if (outFile.is_open())
+    {
+        //2) write the file
+        outFile << "Batman rules. Aquaman smells." << delimiter;
+        outFile << "F5" << delimiter << true << delimiter << 13.7;
+    }
+    else std::cout << fullPath << " could not be opened.\n";
+
+    //3) Close the file
+    outFile.close();
+
 
 
     /*
@@ -64,6 +189,55 @@ int main()
 
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
+
+    //1) open the file
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        //read the data
+        std::string line;
+        //reads until it encounters a \n OR the end of the file
+        std::getline(inFile, line);
+
+        //parse the string to get the data
+        std::string data;
+        std::stringstream lineStream(line);
+        //read until it encounters a % OR the end of the stream
+        std::getline(lineStream, data, delimiter);
+        std::cout << data << "\n";
+
+        //try-catch
+        try
+        {
+            //the code that MIGHT throw an exception goes inside the try block
+        std::getline(lineStream, data, delimiter);
+        int iData = std::stoi(data);
+        std::cout << iData << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        bool bData = std::stoi(data);// (data == "1") ? true : false;
+        std::cout << bData << "\n";
+
+        std::getline(lineStream, data, delimiter);
+        float fData = std::stof(data);
+        std::cout << fData << "\n";
+
+        }
+        //you can have multiple catch blocks
+        //order the catch blocks with the more specific exceptions at the top
+        //moving down to a move general exception
+        catch (const std::exception& ex)
+        {
+            //the code that HANDLES the exception goes into the catch block
+            std::cout << "error parsing the data. check the format.\n" << ex.what() << "\n";
+            std::cout << "Data: " << data << "\n";
+        }
+    }
+    else std::cout << fullPath << " could not be opened.\n";
+
+    //3) Close the file
+    inFile.close();
+
 
 
     /*
