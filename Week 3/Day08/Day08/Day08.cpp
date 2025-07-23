@@ -9,6 +9,7 @@
 #include "FlyingCar.h"
 #include <vector>
 #include "BlackjackCard.h"
+#include "nested.h"
 
 void Counter()
 {
@@ -32,6 +33,9 @@ int* GetNumber()
 
 int main()
 {
+	Enclosing enc;
+	enc.DoIt();
+
 	for (int i = 0; i < 10; i++)
 	{
 		Counter();
